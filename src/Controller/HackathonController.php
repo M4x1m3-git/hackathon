@@ -30,6 +30,6 @@ final class HackathonController extends AbstractController
         }
 
 
-        return new Response('Liste des hackathons :'.$hackathons->getLieu());
+        return new Response('Liste des hackathons : '.$hackathons->getLieu());
     }
 }
