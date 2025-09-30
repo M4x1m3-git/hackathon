@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EquipeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipeRepository::class)]
@@ -18,6 +20,21 @@ class Equipe
 
     #[ORM\Column(length: 255)]
     private ?string $lienPrototype = null;
+
+    #[ORM\ManyToOne(inversedBy: 'equipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Projet $Projet = null;
+
+    /**
+     * @var Collection<int, Inscription>
+     */
+    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'Equipe')]
+    private Collection $inscriptions;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +61,48 @@ class Equipe
     public function setLienPrototype(string $lienPrototype): static
     {
         $this->lienPrototype = $lienPrototype;
+
+        return $this;
+    }
+
+    public function getProjet(): ?Projet
+    {
+        return $this->Projet;
+    }
+
+    public function setProjet(?Projet $Projet): static
+    {
+        $this->Projet = $Projet;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): static
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->setEquipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): static
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getEquipe() === $this) {
+                $inscription->setEquipe(null);
+            }
+        }
 
         return $this;
     }

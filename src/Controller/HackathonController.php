@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 final class HackathonController extends AbstractController
 {
@@ -20,7 +21,7 @@ final class HackathonController extends AbstractController
     }
 
     #[Route('/api/hackathon/{id}', name: 'app_hackathon_list')]
-    public function hackathon(EntityManagerInterface $entityManager, $id): JsonResponse
+    public function hackathon(EntityManagerInterface $entityManager, $id, SerializerInterface $serializer): JsonResponse
     {
         $hackathon = $entityManager->getRepository(Hackathon::class)->find($id);
 
@@ -29,7 +30,20 @@ final class HackathonController extends AbstractController
                 'No product found for id '.$id
             );
         }
-        return $this->json(['Lieu' => $hackathon->getLieu()]);
+
+        $jsonContent = $serializer->serialize($hackathon, 'json');
+        return JsonResponse::fromJsonString($jsonContent);
+        //        return $this->json([
+//            'Id' => $hackathon->getId(),
+//            'Lieu' => $hackathon->getLieu(),
+//            'Ville' => $hackathon->getVille(),
+//            'DateHeureDebut' => $hackathon->getDateHeureDebut(),
+//            'DateHeureFin' => $hackathon->getDateHeureFin(),
+//            'Theme' => $hackathon->getTheme(),
+//            'Organisateur' => $hackathon->getOrganisateur(),
+//            'Projets' => $hackathon->getProjets(),
+//            'Inscriptions' => $hackathon->getInscriptions()
+//        ]);
         // return new Response('Lieu du hackathon : '.$hackathon->getLieu());
     }
 }
