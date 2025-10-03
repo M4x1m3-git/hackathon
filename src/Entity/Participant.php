@@ -6,6 +6,7 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 class Participant
@@ -13,12 +14,15 @@ class Participant
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["inscription"])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(["inscription"])]
     private ?\DateTime $dateNaissance = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["inscription"])]
     private ?string $lienPortefolio = null;
 
     /**

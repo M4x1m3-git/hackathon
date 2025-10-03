@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\InscriptionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
 class Inscription
@@ -11,27 +12,34 @@ class Inscription
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["hackathon", "inscription"])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(["hackathon", "inscription"])]
     private ?int $num = null;
 
     #[ORM\Column]
+    #[Groups(["hackathon", "inscription"])]
     private ?\DateTime $date = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["hackathon", "inscription"])]
     private ?string $competence = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["inscription"])]
     private ?Hackathon $Hackathon = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["hackathon", "inscription"])]
     private ?Participant $Participant = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["hackathon", "inscription"])]
     private ?Equipe $Equipe = null;
 
     public function getId(): ?int

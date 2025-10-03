@@ -31,7 +31,7 @@ final class HackathonController extends AbstractController
             );
         }
 
-        $jsonContent = $serializer->serialize($hackathon, 'json');
+        $jsonContent = $serializer->serialize($hackathon, 'json', ['groups' => ['hackathon']]);
         return JsonResponse::fromJsonString($jsonContent);
         //        return $this->json([
 //            'Id' => $hackathon->getId(),
@@ -45,5 +45,20 @@ final class HackathonController extends AbstractController
 //            'Inscriptions' => $hackathon->getInscriptions()
 //        ]);
         // return new Response('Lieu du hackathon : '.$hackathon->getLieu());
+    }
+
+    #[Route('/api/hackathons', name: 'app_hackathons_list')]
+    public function hackathons(EntityManagerInterface $entityManager, SerializerInterface $serializer): JsonResponse
+    {
+        $hackathon = $entityManager->getRepository(Hackathon::class)->findAll();
+
+        if (!$hackathon) {
+            throw $this->createNotFoundException(
+                'No product found for all hackathons'
+            );
+        }
+
+        $jsonContent = $serializer->serialize($hackathon, 'json', ['groups' => ['hackathon']]);
+        return JsonResponse::fromJsonString($jsonContent);
     }
 }

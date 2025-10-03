@@ -6,6 +6,7 @@ use App\Repository\HackathonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: HackathonRepository::class)]
 class Hackathon
@@ -13,37 +14,46 @@ class Hackathon
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["hackathon", "inscription"])]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(["hackathon", "inscription"])]
     private ?\DateTime $dateHeureDebut = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(["hackathon", "inscription"])]
     private ?\DateTime $dateHeureFin = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["hackathon", "inscription"])]
     private ?string $lieu = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["hackathon", "inscription"])]
     private ?string $ville = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["hackathon", "inscription"])]
     private ?string $theme = null;
 
     #[ORM\ManyToOne(inversedBy: 'hackathons')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["hackathon", "inscription"])]
     private ?Organisateur $Organisateur = null;
 
     /**
      * @var Collection<int, Projet>
      */
     #[ORM\OneToMany(targetEntity: Projet::class, mappedBy: 'Hackathon')]
+    #[Groups(["hackathon", "inscription"])]
     private Collection $projets;
 
     /**
      * @var Collection<int, Inscription>
      */
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'Hackathon')]
+    #[Groups(["hackathon"])]
     private Collection $inscriptions;
 
     public function __construct()

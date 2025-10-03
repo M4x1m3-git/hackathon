@@ -6,6 +6,7 @@ use App\Repository\ProjetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ProjetRepository::class)]
 class Projet
@@ -13,12 +14,15 @@ class Projet
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["hackathon"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["hackathon"])]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["hackathon"])]
     private ?bool $retenu = null;
 
     #[ORM\ManyToOne(inversedBy: 'projets')]
