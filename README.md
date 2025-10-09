@@ -27,3 +27,6 @@ L'objectif est de concevoir une API à l'aide de symfony.
  - Insomnia (Test des URL)
  - Dbeaver (Visualiser la base de données)
 
+## Github
+Retrouver le dépôt sur : https://github.com/M4x1m3-git/hackathon.git
+Tout est développé sur la branche dev puis sera fusionné sur main à terme.
