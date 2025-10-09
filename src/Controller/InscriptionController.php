@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 final class InscriptionController extends AbstractController
 {
-    #[Route('/inscription', name: 'app_inscription')]
+    #[Route('/inscription', name: 'app_inscription', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('inscription/index.html.twig', [
@@ -20,7 +20,7 @@ final class InscriptionController extends AbstractController
         ]);
     }
 
-    #[Route('/api/inscription/{id}', name: 'app_inscription_list')]
+    #[Route('/api/inscription/{id}', name: 'app_inscription_list', methods: ['GET'])]
     public function inscription(EntityManagerInterface $entityManager, $id, SerializerInterface $serializer): JsonResponse
     {
         $inscription = $entityManager->getRepository(Inscription::class)->find($id);
@@ -35,7 +35,7 @@ final class InscriptionController extends AbstractController
         return JsonResponse::fromJsonString($jsonContent);
     }
 
-    #[Route('/api/inscriptions', name: 'app_inscriptions_list')]
+    #[Route('/api/inscriptions', name: 'app_inscriptions_list', methods: ['GET'])]
     public function inscriptions(EntityManagerInterface $entityManager, SerializerInterface $serializer): JsonResponse
     {
         $inscription = $entityManager->getRepository(Inscription::class)->findAll();

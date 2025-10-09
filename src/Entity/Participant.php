@@ -14,15 +14,15 @@ class Participant
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["inscription"])]
+    #[Groups(["inscription", "participant"])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(["inscription"])]
+    #[Groups(["inscription", "participant"])]
     private ?\DateTime $dateNaissance = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["inscription"])]
+    #[Groups(["inscription", "participant"])]
     private ?string $lienPortefolio = null;
 
     /**
