@@ -30,3 +30,8 @@ L'objectif est de concevoir une API à l'aide de symfony.
 ## Github
 Retrouver le dépôt sur : https://github.com/M4x1m3-git/hackathon.git
 Tout est développé sur la branche dev puis sera fusionné sur main à terme.
+
+## Commandes
+ - symfony server:start => lancer le serveur
+ - php bin/console make:migration => faire une migration
+ - php bin/console doctrine:fixtures:load => peupler la base de donnée
