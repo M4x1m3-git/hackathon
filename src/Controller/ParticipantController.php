@@ -14,15 +14,15 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ParticipantController extends AbstractController
 {
-    #[Route('/api/participant', name: 'app_participant')]
-    public function index(): Response
-    {
-        return $this->render('participant/index.html.twig', [
-            'controller_name' => 'ParticipantController',
-        ]);
-    }
+//    #[Route('/api/participant', name: 'app_participant')]
+//    public function index(): Response
+//    {
+//        return $this->render('participant/index.html.twig', [
+//            'controller_name' => 'ParticipantController',
+//        ]);
+//    }
 
-    #[Route('/api/participants/{id}', name: 'app_participant_list', methods: ['GET'])]
+    #[Route('/api/participants/{id}', name: 'app_participant_id', methods: ['GET'])]
     public function inscription(EntityManagerInterface $entityManager, $id, SerializerInterface $serializer): JsonResponse
     {
         $participant = $entityManager->getRepository(Participant::class)->find($id);
@@ -75,7 +75,7 @@ final class ParticipantController extends AbstractController
         $participant = $entityManager->getRepository(Participant::class)->find($id);
 
         if (!$participant) {
-            return new JsonResponse(['message' => 'Hackathon not found'], JsonResponse::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'Participant not found'], JsonResponse::HTTP_NOT_FOUND);
         }
 
         $serializer->deserialize($request->getContent(), Participant::class, 'json', [
