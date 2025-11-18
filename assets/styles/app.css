@@ -1,3 +1,22 @@
 body {
     background-color: skyblue;
 }
+.event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.2s;
+}
+.event-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.event-card__title {
+    margin: 0;
+    font-size: 1.2rem;
+}
+.event-card__location,
+.event-card__date {
+    color: #555;
+    font-size: 0.9rem;
+}

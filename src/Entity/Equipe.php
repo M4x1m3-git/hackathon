@@ -38,6 +38,9 @@ class Equipe
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'Equipe')]
     private Collection $inscriptions;
 
+    #[ORM\ManyToOne(inversedBy: 'equipes')]
+    private ?Inscription $chef = null;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
@@ -110,6 +113,18 @@ class Equipe
                 $inscription->setEquipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getChef(): ?Inscription
+    {
+        return $this->chef;
+    }
+
+    public function setChef(?Inscription $chef): static
+    {
+        $this->chef = $chef;
 
         return $this;
     }
