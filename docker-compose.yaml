@@ -1,0 +1,39 @@
+services:
+    db:
+        image: mysql:8.0
+        container_name: hacka_db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: hackathon
+            MYSQL_USER: hacka_user
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: rootpassword
+        ports:
+            - "3306:3306"
+        volumes:
+            - db_data:/var/lib/mysql
+
+    php:
+        build: .
+        container_name: hacka_php
+        restart: unless-stopped
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            - db
+        environment:
+            DATABASE_URL: "mysql://hacka_user:password@db:3306/hackathon?serverVersion=8.0.43&charset=utf8mb4"
+
+    nginx:
+        image: nginx:alpine
+        container_name: hacka_nginx
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www/html
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - php
+
+volumes:
+    db_data:
