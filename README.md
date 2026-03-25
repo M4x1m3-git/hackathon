@@ -35,3 +35,10 @@ Tout est développé sur la branche dev puis sera fusionné sur main à terme.
  - symfony server:start => lancer le serveur
  - php bin/console make:migration => faire une migration
  - php bin/console doctrine:fixtures:load => peupler la base de donnée
+
+## Pour lancer le projet, suivre ces étapes
+ - Exécuter la commande : composer install
+ - Lancer docker desktop / docker en fonction de votre environnement
+ - Exécuter la commande : docker compose up -d --build
+
+Maintenant vous pouvez aller sur n'importe quelle page de l'api par exemple http://localhost:8000/api/docs pour le swagger.
